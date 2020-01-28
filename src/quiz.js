@@ -1,4 +1,4 @@
-import questions from './questions.js';
+import {questions} from './questions.js';
 
 export default class quiz{
     constructor(renderer) {
@@ -19,10 +19,12 @@ export default class quiz{
     selectAnswer(index) {
         if(index === this.quiz.c){
             //Correct Answer
+            this.renderer.playAnswerIndicator(true); //Flashes a green screen
             this.trackStat(this.quiz.category, true);
             this.nextQuestion();
         } else {
             //Wrong Answer
+            this.renderer.playAnswerIndicator(false); //Flashes a red screen
             this.trackStat(this.quiz.category, false);
             this.nextQuestion();
         }
@@ -60,6 +62,6 @@ export default class quiz{
     }
 
     updateGameStatistics() {
-
+        //TODO: Will update statistics of the game
     }
 }

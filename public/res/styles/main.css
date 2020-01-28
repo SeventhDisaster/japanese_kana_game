@@ -2,8 +2,27 @@
     font-family: 'Roboto', sans-serif;
 }
 
+@keyframes wrongChoice {
+    0% { background: #ff6666 }
+    100% { background: #fefefe }
+}
+
+@keyframes correctChoice {
+    0% { background: #66ff66 }
+    100% { background: #fefefe }
+}
+
+.wrongAnimation {
+    animation: wrongChoice .8s;
+}
+
+.correctAnimation {
+    animation: correctChoice .8s;
+}
+
 body {
     background-color: #fefefe;
+    margin: 0;
 }
 
 header {
@@ -13,6 +32,8 @@ header {
 
 #game-title {
     font-family: 'Montserrat', sans-serif !important; 
+    margin: 0;
+    padding-top: .6em;
 }
 
 #quiz-container {

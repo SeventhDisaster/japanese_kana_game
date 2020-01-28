@@ -1,0 +1,37 @@
+{
+  "name": "quiz_game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SeventhDisaster/japanese_kana_game.git",
+  "author": "Krister <37347340+SeventhDisaster@users.noreply.github.com>",
+  "babel": {
+      "presets": [
+          "@babel/env"
+      ]
+  }, 
+  "devDependencies": {
+        "@babel/cli": "7.7.4", 
+        "@babel/core": "7.7.4", 
+        "@babel/preset-env": "7.7.4", 
+        "babel-jest": "24.9.0", 
+        "jest": "24.9.0", 
+        "webpack": "4.41.2", 
+        "webpack-cli": "3.3.10", 
+        "webpack-dev-server": "3.9.0"
+  }, 
+  "engines": {
+      "node": "^12.0.0"
+  }, 
+  "jest": {
+      "collectCoverageFrom": [
+          "src/**.(js|jsx)"
+      ], 
+      "testRegex": "tests/.*-test\\.(js|jsx)$"
+  }, 
+  "license": "MIT",
+  "scripts": {
+      "build": "webpack --mode production", 
+      "dev": "webpack-dev-server --open --mode development", 
+      "test": "jest --coverage"
+  }
+}
