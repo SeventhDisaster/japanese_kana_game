@@ -14,6 +14,15 @@ for(let i in hiragana) {
     let randomPosition = Math.floor(Math.random()*4) 
     question.c = randomPosition
     question.a[randomPosition] = hiragana[i];
+
+    for(let x = 0; x < question.a.length; x++){
+        if(x === randomPosition){continue;}
+        
+        let randomAlternative = Math.floor(Math.random() * hiragana.length);
+        if(randomAlternative === i){ randomAlternative++;}
+        question.a[x] = hiragana[randomAlternative];
+    }
+
     questions.push(question);
 }
 
