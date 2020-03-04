@@ -1,6 +1,5 @@
 import React from "react";
 import {Quiz} from "./quiz.jsx";
-import {Link} from "react-router-dom";
 import {setHiraganaQuestions, setKatakanaQuestions, setAllQuestions, resetQuestions, setPhoneticQuestions} from "./questions.js";
 
 export class Game extends React.Component {

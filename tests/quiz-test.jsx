@@ -38,10 +38,12 @@ test("Test Do Answer", () => {
     const cor = driver.find("#correct-counter");
     const wro = driver.find("#wrong-counter");
 
+    console.log(cor.text());
+
     //Checks both correct and wrong, if either of them is 1, that means an increment happened
     if(cor.text() === "1" || wro.text() === "1"){
         answer = 1;
     }
 
-    expect(msg).toBeDefined();
+    expect(answer).toBeDefined();
 })
