@@ -9,6 +9,7 @@
             "@babel/plugin-proposal-class-properties"
         ],
         "presets": [
+            "@babel/env", 
             "@babel/react"
         ]
     },
@@ -20,9 +21,14 @@
         "@babel/preset-react": "7.7.4", 
         "babel-jest": "24.9.0", 
         "babel-loader": "8.0.6", 
-        "jest": "24.9.0",
+        "enzyme": "3.10.0", 
+        "enzyme-adapter-react-16": "1.15.1", 
+        "jest": "24.9.0", 
+        "jsdom": "15.2.1", 
+        "react-addons-test-utils": "^15.6.2", 
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
+        "react-router-dom": "5.1.2",
         "webpack": "4.41.2",
         "webpack-cli": "3.3.10",
         "webpack-dev-server": "3.9.0"
@@ -33,14 +39,20 @@
     "jest": {
         "collectCoverageFrom": [
             "src/**.(js|jsx)"
-        ],
+        ], 
+        "setupFilesAfterEnv": [
+            "<rootDir>/tests/jest-setup.js"
+        ], 
+        "testEnvironment": "node", 
         "testRegex": "tests/.*-test\\.(js|jsx)$"
-    },
+    }, 
     "license": "MIT",
     "scripts": {
         "build": "webpack --mode production",
         "dev": "webpack-dev-server --open --mode development",
-        "test": "jest --coverage"
+        "test": "jest --coverage",
+        "start": "node src/server/server.js",
+        "run": "yarn build && yarn start"
     },
     "dependencies": {
         "react": "16.12.0",

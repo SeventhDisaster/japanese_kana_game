@@ -2,24 +2,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-@keyframes wrongChoice {
-    0% { background: #ff6666 }
-    100% { background: #fefefe }
-}
-
-@keyframes correctChoice {
-    0% { background: #66ff66 }
-    100% { background: #fefefe }
-}
-
-.wrongAnimation {
-    animation: wrongChoice .8s;
-}
-
-.correctAnimation {
-    animation: correctChoice .8s;
-}
-
 body {
     background-color: #fefefe;
     margin: 0;
@@ -36,6 +18,79 @@ header {
     padding-top: .6em;
 }
 
+.mode-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 55vh;
+    padding: 1em;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.mode-container a {
+    width: 40%;
+    height: 45%;
+    margin: auto;
+    padding: 2em 1em;
+}
+
+.mode-select {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 10px;
+}
+
+
+.mode-hira {
+    background-color: #ffaaaa;
+}
+
+.mode-kata {
+    background-color: #aaffaa;
+}
+
+.mode-phon {
+    background-color: #aaaaff;
+}
+
+@keyframes kana {
+    0% {
+        background-color: #ffaaaa;
+    }
+    33% {
+        background-color: #aaffaa;
+    }
+    66% {
+        background-color: #aaaaff;
+    }
+    100% {
+        background-color: #ffaaaa;
+    }
+}
+
+@keyframes kanatext {
+    0% {
+        color: #995555;
+    }
+    33% {
+        color: #559955;
+    }
+    66% {
+        color: #555599;
+    }
+    100% {
+        color: #995555;
+    }
+}
+
+.mode-kana {
+    animation: kana infinite linear 3s;
+}
+
+/* IN-GAME STYLES */
+
 #quiz-container {
     width: 70%;
     background-color: #fafafa;
@@ -45,13 +100,35 @@ header {
     text-align: center;
 }
 
+#question-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
 #question {
+    animation: kanatext 2s infinite linear;
+    width: 60% !important;
+    line-height: 1em;
+}
+
+#correct-counter {
+    color: #33cc33;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+#wrong-counter {
     color: #ff5555;
+    font-weight: bold;
+    line-height: 1em;
 }
 
 #answer-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     height: 55vh;
     padding: 1em;
     justify-content: space-evenly;
@@ -73,7 +150,8 @@ header {
 }
 
 .answer-button {
-    width: 70%;
+    width: 47%;
+    height: 45%;
     margin: auto;
     padding: 2em 1em;
     background-color: #ffaaaa;

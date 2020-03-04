@@ -7,25 +7,33 @@ export class Quiz extends React.Component {
         super(props)
 
         this.state = {
-            question: getRandomQuestions(1)[0]
+            question: getRandomQuestions(1)[0],
+            correct: 0,
+            wrong: 0
         }
         console.log(this.state.question)
     }
 
     nextQuestion = () => {
-        this.setState(
-            () => ({question: getRandomQuestions(1)[0]})
-        )
+        this.setState({question: getRandomQuestions(1)[0]});
+    }
+
+    incrementCorrect = () => {
+        this.setState({correct: this.state.correct + 1});
+    }
+
+    incrementWrong = () => {
+        this.setState({wrong: this.state.wrong + 1});
     }
 
     selectAnswer = (index) => {
         if(index === this.state.question.c){
             //Correct Answer
-            console.log("Correct");
+            this.incrementCorrect();
             this.nextQuestion();
         } else {
             //Wrong Answer
-            console.log("Wrong");
+            this.incrementWrong();
             this.nextQuestion();
         }
     }
@@ -33,7 +41,11 @@ export class Quiz extends React.Component {
     render() {
         return(
             <section id="quiz-container">
-                <h2 id="question">{this.state.question.q}</h2>
+                <div id="question-container">
+                    <h2 id="correct-counter">{this.state.correct}</h2>
+                    <h2 id="question">{this.state.question.q}</h2>
+                    <h2 id="wrong-counter">{this.state.wrong}</h2>
+                </div>
                 <div id="answer-container">
                     <button className="answer-button button" onClick={() => this.selectAnswer(0)}>{this.state.question.a[0]}</button>
                     <button className="answer-button button" onClick={() => this.selectAnswer(1)}>{this.state.question.a[1]}</button>
