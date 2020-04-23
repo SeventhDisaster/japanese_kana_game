@@ -1,6 +1,6 @@
 const React = require('react');
 const { mount } = require('enzyme');
-const {Game} = require("../src/client/game");
+const {Game} = require("../../src/client/game");
 
 function checkGameHeaderDisplayed(driver) {
     const headerContainer = driver.find('#page-header');
@@ -14,6 +14,6 @@ function checkGameHeaderDisplayed(driver) {
 }
 
 test("Test Rendered Game Header", () => {
-    const driver = mount(<Game/>);
+    const driver = mount(<Game category={"All"}/>);
     checkGameHeaderDisplayed(driver);
 })

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Results} from './results';
 import {Game} from "./game";
 import {Home} from "./home";
 import {NotFound} from "./notfound";
@@ -11,10 +12,11 @@ const App = () => {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={Home}/>
-                    <Route exact path="/hiraquiz" render={() => <Game category="Hira"/> /* Hiragana Quiz */ }/>
-                    <Route exact path="/kataquiz" render={() => <Game category="Kata"/> /* Katakana Quiz */ }/>
-                    <Route exact path="/phonquiz" render={() => <Game category="Phon"/> /* Phonetic Quiz */ }/>
-                    <Route exact path="/kanaquiz" render={() => <Game category="Kana"/> /* All Quizzes */ }/>
+                    <Route exact path="/hiraquiz" render={() => <Game category={"Hiragana"}/> /* Hiragana Quiz */ }/>
+                    <Route exact path="/kataquiz" render={() => <Game category={"Katakana"}/> /* Katakana Quiz */ }/>
+                    <Route exact path="/phonquiz" render={() => <Game category={"Phonetic"}/> /* Phonetic Quiz */ }/>
+                    <Route exact path="/kanaquiz" render={() => <Game category={"All"}/> /* All Quizzes */ }/>
+                    <Route exact path="/results" component={Results}/>
                     <Route component={NotFound}/>
                 </Switch>
             </BrowserRouter>
