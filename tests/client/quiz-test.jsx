@@ -5,35 +5,40 @@ const { quizzes, initQuestions } = require("../../src/server/quiz-repository")
 const { overrideFetch, asyncCheckCondition } = require('../test-utils')
 const app = require("../../src/server/app");
 
-function checkQuizIsDisplayed(driver) {
+
+
+function isQuizDisplayed(driver) {
     const questionTag = driver.find('#question');
-    expect(questionTag.length).toEqual(1);
-
     const answerButtons = driver.find('.answer-button');
-    expect(answerButtons.length).toEqual(4);
-
     const skipQuestionButton = driver.find('#next-quiz-btn');
-    expect(skipQuestionButton.length).toEqual(1);
 
-    const q = questionTag
-    const quiz = quizzes.find(e => e.q === q);
+    return questionTag.length === 1 && answerButtons.length === 4 && skipQuestionButton.length === 1
+}
 
-    return quiz;
+function getDisplayedQuiz(driver) {
+    const qDiv = driver.find('#question');
+    const question = qDiv.text();
+    return quizzes.find(e => e.q === question);
 }
 
 async function waitForQuizDisplayed(driver) {
-    const displayed = await asyncCheckCondition(() => {
+    return await asyncCheckCondition(() => {
         driver.update();
-        return checkQuizIsDisplayed(driver);
-    }, 2000, 200)
-
-    return displayed;
+        return isQuizDisplayed(driver);
+    }, 2000, 200);
 }
 
 
 //Makes sure questions are generated before tests are run
 beforeAll(() => {
     initQuestions();
+})
+
+//Test does not need to be async as it should see the result before a fetch is made.
+test("Test non-rendered quiz", () => {
+    const driver = mount(<Quiz category={"All"}/>);
+    expect(isQuizDisplayed(driver)).toBe(false);
+    expect(driver.find(".await-quiz")).toBeDefined();
 })
 
 test("Test Rendered Quiz", async () => {
@@ -43,28 +48,45 @@ test("Test Rendered Quiz", async () => {
     expect(displayed).toEqual(true);
 })
 
-test("Test Do Answer", async () => {
+test("Test Do Answer Wrong", async () => {
     const driver = mount(<Quiz category={"All"}/>);
 
     overrideFetch(app);
     await waitForQuizDisplayed(driver);
 
-    let answer = undefined;
+    const quiz = getDisplayedQuiz(driver);
+    const wrong = (quiz.c + 2) % 4;
 
     //Simulate a click on the first answer
-    const first = driver.find('.answer-button').at(0);
+    const first = driver.find('.answer-button').at(wrong);
     first.simulate('click');
 
     //The answer can be either wrong or correct, due to randomly generated tests
     const cor = driver.find("#correct-counter");
     const wro = driver.find("#wrong-counter");
 
-    console.log(cor.text());
+    expect(parseInt(cor.text())).toBe(0);
+    expect(parseInt(wro.text())).toBe(1);
+})
 
-    //Checks both correct and wrong, if either of them is 1, that means an increment happened
-    if(cor.text() === "1" || wro.text() === "1"){
-        answer = 1;
-    }
+test("Test Do Answer Correctly", async () => {
+    const driver = mount(<Quiz category={"All"}/>);
 
-    expect(answer).toBeDefined();
+    overrideFetch(app);
+    await waitForQuizDisplayed(driver);
+
+    const quiz = getDisplayedQuiz(driver);
+
+    const correct = quiz.c
+
+    //Simulate a click on the first answer
+    const first = driver.find('.answer-button').at(correct);
+    first.simulate('click');
+
+    //The answer can be either wrong or correct, due to randomly generated tests
+    const cor = driver.find("#correct-counter");
+    const wro = driver.find("#wrong-counter");
+
+    expect(parseInt(cor.text())).toBe(1);
+    expect(parseInt(wro.text())).toBe(0);
 })

@@ -92,7 +92,7 @@ export class Quiz extends React.Component {
                         <h2 id="wrong-counter">{this.state.wrong}</h2>
                     </div> 
                 :
-                    <p id="await-quiz">Awaiting Quiz</p>
+                    <p className="await-quiz">Awaiting Quiz</p>
                 }
 
                 {this.state.question !== null ?
@@ -111,7 +111,7 @@ export class Quiz extends React.Component {
                         </button>
                     </div> 
                 :
-                    <p>No quiz loaded</p>
+                    <p className="await-quiz">No quiz loaded</p>
                 }
                 <button className="button" id="next-quiz-btn" onClick={() => this.nextQuestion()}>Skip</button>
             </section>
